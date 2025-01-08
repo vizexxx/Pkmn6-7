@@ -1,7 +1,13 @@
 package v.melnikova.pkmn.models;
 
+import lombok.Builder;
+import lombok.Data;
+import v.melnikova.pkmn.entity.StudentEntity;
+
 import java.io.Serializable;
 
+@Data
+@Builder
 public class Student implements Serializable {
     private String firstName;
     private String surName;
@@ -14,7 +20,7 @@ public class Student implements Serializable {
 
     }
 
-    public Student(String firstName, String surName, String familyName, String group)
+    public Student( String surName, String firstName, String familyName, String group)
     {
         this.firstName = firstName;
         this.surName = surName;
@@ -63,4 +69,18 @@ public class Student implements Serializable {
     {
         return firstName + "/" + surName + "/" + familyName + "/" + group;
     }
+
+
+    public static Student fromEntity(StudentEntity entity) {
+        if (entity == null)
+            return null;
+        return Student.builder()
+                .firstName(entity.getFirstName())
+                .surName(entity.getSurName())
+                .familyName(entity.getFamilyName())
+                .group(entity.getGroup())
+                .build();
+    }
+
+
 }

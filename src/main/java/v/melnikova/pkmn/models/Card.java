@@ -1,8 +1,14 @@
 package v.melnikova.pkmn.models;
 
+import lombok.Builder;
+import lombok.Data;
+import v.melnikova.pkmn.entity.CardEntity;
+
 import java.io.Serializable;
 import java.util.List;
 
+@Data
+@Builder
 public class Card implements Serializable {
     private PokemonStage pokemonStage;
     private String name;
@@ -168,4 +174,28 @@ public class Card implements Serializable {
             return String.format("\u001b[38;5;111m%s pokemon:\u001b[38;5;15m \n" +
                     "1. ", this.pokemonStage) + this.pokemonStage + "\n2. " + name + "\n3. " + hp + "\n4. " + pokemonType + "\n5. " + evolvesFrom + "\n6. " + skills + "\n7. " + weaknessType + "\n8. " + resistanceType + "\n9. " + retreatCost + "\n10. " + gameSet + "\n11. " + regulationMark + "\n12. " + pokemonOwner + "\n13. "+ number + "\n";
     }
+
+
+
+
+    public static Card fromEntity(CardEntity entity) {
+        if (entity == null)
+            return null;
+        return Card.builder()
+                .pokemonStage(entity.getPokemonStage())
+                .name(entity.getName())
+                .hp(entity.getHp())
+                .pokemonType(entity.getPokemonType())
+                .evolvesFrom(Card.fromEntity(entity.getEvolvesFrom()))
+                .skills(entity.getSkills())
+                .weaknessType(entity.getWeaknessType())
+                .resistanceType(entity.getResistanceType())
+                .retreatCost(entity.getRetreatCost())
+                .gameSet(entity.getGameSet())
+                .regulationMark(entity.getRegulationMark())
+                .pokemonOwner(Student.fromEntity(entity.getPokemonOwner()))
+                .number(entity.getNumber())
+                .build();
+    }
+
 }

@@ -18,4 +18,5 @@ public enum PokemonStage {
     {
         return pokemonStage;
     }
+
 }
