@@ -24,34 +24,5 @@ import java.util.Base64;
 @RestController
 @Slf4j
 public class AuthController {
-    private final JwtService jwtService;
-
-    private final LoginService loginService;
-
-    private final JdbcUserDetailsManager jdbcUserDetailsManager;
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) throws CredentialException {
-        if (!jdbcUserDetailsManager.userExists(loginRequest.getUsername())) {
-            return ResponseEntity.ok("User should be registered");
-        }
-        String jwt = loginService.login(loginRequest.getUsername(), loginRequest.getPassword());
-        return ResponseEntity.ok(jwt);
-    }
-
-
-
-    @PostMapping("/success")
-    public ResponseEntity<String> success(@AuthenticationPrincipal UserDetails user, HttpServletResponse response) throws IOException {
-        log.info("Authentificated user {}", user.getUsername());
-        String jwt = jwtService.createJwt(user.getUsername(), user.getAuthorities().iterator().next());
-        log.info("Create jwt token for user {}", jwt);
-        response.addCookie(new Cookie("jwt", Base64.getEncoder().encodeToString(jwt.getBytes(StandardCharsets.UTF_8))));
-        ClassPathResource resource = new ClassPathResource("success.html");
-        String success = new String(Files.readAllBytes(resource.getFile().toPath()));
-        return ResponseEntity.ok()
-                .body(success);
-    }
-
 
 }
