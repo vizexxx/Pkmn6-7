@@ -1,7 +1,6 @@
 package v.melnikova.pkmn.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import v.melnikova.pkmn.dao.StudentDao;
 import v.melnikova.pkmn.entity.StudentEntity;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public abstract class StudentServiceImpl implements StudentService{
+public class StudentServiceImpl implements StudentService{
     private final StudentDao studentDao;
 
     @Override

@@ -2,27 +2,28 @@ package v.melnikova.pkmn.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import org.springframework.data.annotation.Id;
 import v.melnikova.pkmn.deserializer.SkillDeserializer;
 import v.melnikova.pkmn.models.*;
+import v.melnikova.pkmn.repository.CardEntityRepository;
+import v.melnikova.pkmn.repository.StudentEntityRepository;
 
 import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
+
 @Entity
 @Table(name = "cards")
-@Data
 @Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CardEntity {
+public class CardEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -39,7 +40,8 @@ public class CardEntity {
     @Column(name="hp")
     private int hp;
 
-    @Column(name="evolves_from_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="evolves_from_id")
     private CardEntity evolvesFrom;
 
     @JdbcTypeCode(SqlTypes.JSON)
@@ -68,7 +70,8 @@ public class CardEntity {
     @Column(name="regulation_mark")
     private char regulationMark;
 
-    @Column(name="pokemon_owner_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="pokemon_owner_id")
     private StudentEntity pokemonOwner;
 
     @Column(name="card_number")

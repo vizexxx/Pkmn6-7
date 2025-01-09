@@ -1,11 +1,13 @@
 package v.melnikova.pkmn.service;
 
+import org.springframework.stereotype.Service;
 import v.melnikova.pkmn.entity.StudentEntity;
 import v.melnikova.pkmn.models.Card;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public interface CardService {
     List<Card> getAllCards();
 
@@ -15,5 +17,7 @@ public interface CardService {
 
     Card getCardByName(String name);
 
-    Card getCardByOwner(StudentEntity studentEntity);
+    Card getCardByPokemonOwner(StudentEntity studentEntity);
+
+
 }

@@ -19,12 +19,12 @@ public class CardDao {
 
     @SneakyThrows
     public List<CardEntity> getAllCards() {
-        return cardRepository.findAllCards();
+        return cardRepository.findAll();
     }
 
     @SneakyThrows
     public CardEntity getCardById(UUID id) {
-        return cardRepository.findByID(id).orElseThrow(
+        return cardRepository.findById(id).orElseThrow(
                 () -> new UserPrincipalNotFoundException("Карта не найдена")
         );
     }
@@ -37,8 +37,8 @@ public class CardDao {
     }
 
     @SneakyThrows
-    public CardEntity getCardByOwner(StudentEntity studentEntity) {
-        return cardRepository.findByOwner(studentEntity).orElseThrow(
+    public CardEntity getCardByPokemonOwner(StudentEntity studentEntity) {
+        return cardRepository.findByPokemonOwner(studentEntity).orElseThrow(
                 () -> new UserPrincipalNotFoundException("Карта не найдена")
         );
     }

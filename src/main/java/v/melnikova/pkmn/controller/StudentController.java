@@ -1,8 +1,6 @@
 package v.melnikova.pkmn.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
 import v.melnikova.pkmn.models.Student;
 import v.melnikova.pkmn.service.StudentService;
@@ -12,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/students")
 @RequiredArgsConstructor
-public class UserController {
+public class StudentController {
     private final StudentService userService;
 
     @GetMapping("/all")
@@ -21,8 +19,8 @@ public class UserController {
         return userService.getAllStudents();
     }
 
-    @GetMapping("/group")
-    public List<Student> getStudentsByGroup(@RequestParam String group)
+    @GetMapping("/group/{group}")
+    public List<Student> getStudentsByGroup(@PathVariable String group)
     {
         return userService.getAllByGroup(group);
     }

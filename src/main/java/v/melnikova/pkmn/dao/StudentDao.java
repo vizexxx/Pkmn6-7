@@ -27,7 +27,7 @@ public class StudentDao {
 
     @SneakyThrows
     public StudentEntity getStudentByFIO(String surName, String firstName,String familyName) {
-        return studentRepository.findByFIO(surName,firstName,familyName).orElseThrow(
+        return studentRepository.findByFirstNameAndSurNameAndFamilyName(surName,firstName,familyName).orElseThrow(
                 () -> new UserPrincipalNotFoundException("Студент не найден")
         );
     }
@@ -40,6 +40,6 @@ public class StudentDao {
 
     public boolean searchStudent(Student student)
     {
-        return studentRepository.findByData(student.getSurName(), student.getFirstName(), student.getFamilyName(), student.getGroup()).isPresent();
+        return studentRepository.findByFirstNameAndSurNameAndFamilyNameAndGroup(student.getSurName(), student.getFirstName(), student.getFamilyName(), student.getGroup()).isPresent();
     }
 }
